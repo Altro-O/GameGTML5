@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Собери слова</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #letters {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    #word {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Собери слова</h1>
+  <div id="letters"></div>
+  <input id="word" type="text">
+  <button id="submit">Собрать слово</button>
+  <script>
+    const letters = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ы', 'э', 'ю', 'я'];
+    const word = '';
+    const submitButton = document.getElementById('submit');
+    const wordInput = document.getElementById('word');
+    const lettersDiv = document.getElementById('letters');
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function generateLetters() {
+      const shuffledLetters = shuffleArray(letters);
+      lettersDiv.innerHTML = '';
+      for (let i = 0; i < 6; i++) {
+        const letter = shuffledLetters[i];
+        lettersDiv.innerHTML += `<span>${letter}</span>`;
+      }
+    }
+
+    generateLetters();
+
+    submitButton.addEventListener('click', () => {
+      const userWord = wordInput.value.toLowerCase();
+      if (userWord.length > 0) {
+        const wordArray = userWord.split('');
+        let correct = true;
+        for (let i = 0; i < wordArray.length; i++) {
+          if (!letters.includes(wordArray[i])) {
+            correct = false;
+            break;
+          }
+        }
+        if (correct) {
+          // UserWord - правильное слово, можно начислить очки
+        } else {
+          // UserWord - неправильное слово, можно показать сообщение об ошибке
+        }
+      }
+    });
+  </script>
+</body>
+</html>
